@@ -10,7 +10,16 @@ function App() {
   let answer;
 
   const onClickHandlerNewGame = (e) => {
-    console.log("onClickHandlerNewGame", "triggered");
+    //  console.log("onClickHandlerNewGame", "triggered");
+
+    let length = allData.length;
+    let min = 0;
+    let max = length - 1; //remember to take one off the array for the element
+    let rand = Math.floor(Math.random() * (max - min + 1)) + min;
+    //pass the Q and A to the state
+    setGameData({ Q: allData[rand].Q, A: allData[rand].A });
+    console.log("rand", rand);
+    console.log("gameData", gameData.Q + " " + gameData.A);
   };
 
   return (
