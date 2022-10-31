@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { React, useState } from "react";
+import "./App.css";
+import { quizData } from "./Assets/quizz.js";
 
 function App() {
+  const allData = quizData;
+
+  const [gameData, setGameData] = useState({ Q: "Start", A: "Start" });
+  const [answerData, setAnswerData] = useState();
+  let answer;
+
+  const onClickHandlerNewGame = (e) => {
+    console.log("onClickHandlerNewGame", "triggered");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <button
+        className='buttonSubmit btn btn-primary'
+        onClick={onClickHandlerNewGame}
+      >
+        Choose a Random Question
+      </button>
     </div>
   );
 }
