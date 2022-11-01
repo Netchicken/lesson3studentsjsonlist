@@ -33,7 +33,6 @@ function App() {
     console.log("answer = ", answerLet + "  gameplay = " + gameData.A);
 
     setWinlose("- you " + winLoseCalc(answerLet));
-   
   };
 
   const winLoseCalc = (answerLet) => {
@@ -63,9 +62,9 @@ function App() {
           styles={selectCustomStyles}
           options={answerData} //list of data
           className='selectDropDownStyle'
-          //value={selectAnswer}
+          value={answer}
           onChange={handleAnswerChange} //extract the  answer
-          placeholder={newplaceholder(answer)} //'Select the place'
+          placeholder={answer !== "" ? answer : "Select an Answer"} //'Select the place'
           controlShouldRenderValue={true}
         />
       </div>
