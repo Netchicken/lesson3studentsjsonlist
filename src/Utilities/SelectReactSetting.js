@@ -8,7 +8,7 @@ export const selectCustomStyles = {
   }),
 };
 
-export const newplaceholder = (answer) => {
-  console.log("newplaceholder", answer);
-  return answer !== "" ? answer : "Select an Answer";
-};
+// export const newplaceholder = (answer) => {
+//   console.log("newplaceholder", answer);
+//   return answer !== "" ? answer : "Select an Answer";
+// };

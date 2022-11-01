@@ -3,17 +3,13 @@ import "./App.css";
 import { quizData, sortedListAnswers } from "./Assets/quizz.js";
 import Select from "react-select";
 import { Random } from "./Utilities/Random.js";
-import {
-  selectCustomStyles,
-  newplaceholder,
-} from "./Utilities/SelectReactSetting.js";
+import { selectCustomStyles } from "./Utilities/SelectReactSetting.js";
 
 function App() {
   const allData = quizData;
   const [gameData, setGameData] = useState({ Q: "Start", A: "Start" });
   const [answerData, setAnswerData] = useState(sortedListAnswers);
   const [answer, setAnswer] = useState("");
-  //let winlose;
   const [winlose, setWinlose] = useState("");
 
   const onClickHandlerNewGame = () => {
@@ -65,7 +61,7 @@ function App() {
           value={answer}
           onChange={handleAnswerChange} //extract the  answer
           placeholder={answer !== "" ? answer : "Select an Answer"} //'Select the place'
-          controlShouldRenderValue={true}
+          controlShouldRenderValue={false}
         />
       </div>
     </div>
