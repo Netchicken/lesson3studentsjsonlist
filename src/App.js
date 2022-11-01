@@ -1,58 +1,45 @@
 import { React, useState } from "react";
 import "./App.css";
-import { quizData } from "./Assets/quizz.js";
+import { quizData, sortedListAnswers } from "./Assets/quizz.js";
 import Select from "react-select";
+import { Random } from "./Utilities/Random.js";
+import {
+  selectCustomStyles,
+  newplaceholder,
+} from "./Utilities/SelectReactSetting.js";
 
 function App() {
   const allData = quizData;
-
   const [gameData, setGameData] = useState({ Q: "Start", A: "Start" });
-  const [answerData, setAnswerData] = useState();
-  let answer;
+  const [answerData, setAnswerData] = useState(sortedListAnswers);
+  const [answer, setAnswer] = useState("");
 
-  const onClickHandlerNewGame = (e) => {
-    //  console.log("onClickHandlerNewGame", "triggered");
-    answer = "";
-    let length = allData.length;
-    let min = 0;
-    let max = length - 1; //remember to take one off the array for the element
-    let rand = Math.floor(Math.random() * (max - min + 1)) + min;
-    //pass the Q and A to the state
+  const onClickHandlerNewGame = () => {
+    setAnswer("");
+
+    let rand = Random(allData.length);
+    //the actual question and answer
     setGameData({ Q: allData[rand].Q, A: allData[rand].A });
-    //  console.log("rand", rand);
-    console.log("gameData", gameData.Q + " " + gameData.A);
 
-    CreateAnswerData();
+    console.log("rand", rand);
+    console.log("gameData Q= ", gameData.Q + " A= " + gameData.A);
   };
 
-  const CreateAnswerData = () => {
-    //map the data to an array of value and label objects
-    const list = allData.map((item) => ({ value: item.A, label: item.A }));
-    const listSorted = list.sort((a, b) => (a.value > b.value ? 1 : -1));
-    console.log("list", listSorted);
-    setAnswerData(listSorted);
-  };
-  //for the dropdown select https://blog.logrocket.com/getting-started-with-react-select/
-  const selectCustomStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      borderBottom: "1px solid green",
-      color: state.isSelected ? "yellow" : "black",
-      backgroundColor: state.isSelected ? "green" : "white",
-      padding: "0px",
-    }),
-  };
-  const handleAnswerChange = (e) => { 
-    answer = e.value;
+  const handleAnswerChange = (e) => {
+    setAnswer(e.value);
+    console.log("answer = ", answer + "  gameplay = " + gameData.A);
 
+    let result = winLoseCalc();
+    console.log("result", result);
   };
 
-
-const newplaceholder = () => {
-  return answer ? "Select an Answer " + answer : "Select an Answer";
-};
-
-
+  const winLoseCalc = () => {
+    if (answer === gameData.A) {
+      return "win";
+    } else {
+      return "lose";
+    }
+  };
 
   return (
     <div className='App'>
@@ -62,14 +49,18 @@ const newplaceholder = () => {
       >
         Choose a Random Question
       </button>
+      <div>
+        <h2>{gameData.Q}</h2>
+        <h4>You selected {answer}</h4>
+      </div>
       <div className='col-sm'>
         <Select
           styles={selectCustomStyles}
           options={answerData} //list of data
           className='selectDropDownStyle'
-          value={answer}
+          //value={selectAnswer}
           onChange={handleAnswerChange} //extract the  answer
-          placeholder={newplaceholder()} //'Select the place'
+          placeholder={newplaceholder(answer)} //'Select the place'
           controlShouldRenderValue={true}
         />
       </div>
