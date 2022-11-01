@@ -12,6 +12,8 @@ function App() {
   const [answer, setAnswer] = useState("");
   const [winlose, setWinlose] = useState("");
 
+  let answerLet;
+
   const onClickHandlerNewGame = () => {
     setAnswer("");
     setWinlose("");
@@ -24,10 +26,9 @@ function App() {
   };
 
   const handleAnswerChange = (e) => {
-    setAnswer(e.value);
-    let answerLet = e.value; //we need to pass the answer as a let so that its available immediatly and not refreshing the screen
+    setAnswer(e.value); //this holds the state version - it can get passed around and refreshes the front end
+    answerLet = e.value; //we need to pass the answer as a let so that its available immediatly and not refreshing the screen
     console.log("answer = ", answerLet + "  gameplay = " + gameData.A);
-
     setWinlose("- you " + winLoseCalc(answerLet));
   };
 

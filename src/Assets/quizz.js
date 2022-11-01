@@ -1,5 +1,7 @@
 export const sortedListAnswers = () => {
+  //map the data to a list
   const list = quizData.map((item) => ({ value: item.A, label: item.A }));
+  //sort the list ascending
   const listSorted = [...list].sort((a, b) => (a.value > b.value ? 1 : -1));
   console.log("sortedListAnswers in quiz.js", listSorted);
   return listSorted;
