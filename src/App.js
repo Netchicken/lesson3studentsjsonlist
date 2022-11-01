@@ -13,10 +13,12 @@ function App() {
   const [gameData, setGameData] = useState({ Q: "Start", A: "Start" });
   const [answerData, setAnswerData] = useState(sortedListAnswers);
   const [answer, setAnswer] = useState("");
+  //let winlose;
+  const [winlose, setWinlose] = useState("");
 
   const onClickHandlerNewGame = () => {
     setAnswer("");
-
+    setWinlose("");
     let rand = Random(allData.length);
     //the actual question and answer
     setGameData({ Q: allData[rand].Q, A: allData[rand].A });
@@ -27,17 +29,20 @@ function App() {
 
   const handleAnswerChange = (e) => {
     setAnswer(e.value);
-    console.log("answer = ", answer + "  gameplay = " + gameData.A);
+    let answerLet = e.value; //we need to pass the answer as a let so that its available immediatly and not refreshing the screen
+    console.log("answer = ", answerLet + "  gameplay = " + gameData.A);
 
-    let result = winLoseCalc();
-    console.log("result", result);
+    setWinlose("- you " + winLoseCalc(answerLet));
+   
   };
 
-  const winLoseCalc = () => {
-    if (answer === gameData.A) {
-      return "win";
-    } else {
-      return "lose";
+  const winLoseCalc = (answerLet) => {
+    if (answerLet !== "undefined") {
+      if (answerLet === gameData.A) {
+        return "win";
+      } else {
+        return "lose";
+      }
     }
   };
 
@@ -51,7 +56,7 @@ function App() {
       </button>
       <div>
         <h2>{gameData.Q}</h2>
-        <h4>You selected {answer}</h4>
+        <h4>{answer ? "You selected " + answer + winlose : ""}</h4>
       </div>
       <div className='col-sm'>
         <Select
