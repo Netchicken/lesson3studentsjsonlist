@@ -13,22 +13,23 @@ function App() {
   const [winlose, setWinlose] = useState("");
 
   let answerLet;
-
+  let gameDataLet = { Q: "Start", A: "Start" };
   const onClickHandlerNewGame = () => {
     setAnswer("");
     setWinlose("");
     let rand = Random(allData.length);
     //the actual question and answer
     setGameData({ Q: allData[rand].Q, A: allData[rand].A });
-
+    gameDataLet = { Q: allData[rand].Q, A: allData[rand].A };
     console.log("rand", rand);
     console.log("gameData Q= ", gameData.Q + " A= " + gameData.A);
+    console.log("gameDataLet Q= ", gameDataLet.Q + " A= " + gameDataLet.A);
   };
 
   const handleAnswerChange = (e) => {
     setAnswer(e.value); //this holds the state version - it can get passed around and refreshes the front end
     answerLet = e.value; //we need to pass the answer as a let so that its available immediatly and not refreshing the screen
-    console.log("answer = ", answerLet + "  gameplay = " + gameData.A);
+    console.log("answer = ", answerLet + "  gameplay = " + gameData.A + "  gameDataLet.A = " + gameDataLet.A);
     setWinlose("- you " + winLoseCalc(answerLet));
   };
 
